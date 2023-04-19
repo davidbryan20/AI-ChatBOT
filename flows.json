@@ -1,0 +1,200 @@
+[
+    {
+        "id": "132bf0d4128ede56",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "e54934bba2a4791b",
+        "type": "inject",
+        "z": "132bf0d4128ede56",
+        "name": "Teste",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Olá, seja bem-vindo",
+        "payloadType": "str",
+        "x": 90,
+        "y": 160,
+        "wires": [
+            [
+                "947d82ace0e4fde5"
+            ]
+        ]
+    },
+    {
+        "id": "ad632ec17cc77c80",
+        "type": "debug",
+        "z": "132bf0d4128ede56",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 530,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "947d82ace0e4fde5",
+        "type": "function",
+        "z": "132bf0d4128ede56",
+        "name": "",
+        "func": "var dateNow = new Date();\nvar timeAsString = dateNow.toLocaleTimeString();\nmsg.payload = msg.payload +\n              'A hora é: '+\n              timeAsString+'.';\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 160,
+        "wires": [
+            [
+                "ad632ec17cc77c80"
+            ]
+        ]
+    },
+    {
+        "id": "5c1b7bc42e147913",
+        "type": "watson-assistant-v2",
+        "z": "132bf0d4128ede56",
+        "name": "watson-Vendas",
+        "service-endpoint": "https://api.us-south.assistant.watson.cloud.ibm.com/instances/1456dcbf-1333-4213-b649-635d45110a28",
+        "assistant_id": "8b5619c5-1e29-46b6-ab75-2a2a14db2a3d",
+        "debug": false,
+        "restart": false,
+        "return_context": true,
+        "alternate_intents": false,
+        "multisession": true,
+        "timeout": "",
+        "optout-learning": false,
+        "persist-session-id": false,
+        "x": 320,
+        "y": 260,
+        "wires": [
+            [
+                "c202b3c4ec9e00c6"
+            ]
+        ]
+    },
+    {
+        "id": "336041a932714a2b",
+        "type": "inject",
+        "z": "132bf0d4128ede56",
+        "name": "Teste-Watson",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Qual o prazo de entrega ?",
+        "payloadType": "str",
+        "x": 110,
+        "y": 260,
+        "wires": [
+            [
+                "5c1b7bc42e147913"
+            ]
+        ]
+    },
+    {
+        "id": "c202b3c4ec9e00c6",
+        "type": "debug",
+        "z": "132bf0d4128ede56",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 530,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "4798037027a2aca1",
+        "type": "telegram receiver",
+        "z": "132bf0d4128ede56",
+        "name": "BryVendas",
+        "bot": "61f96e70515590ba",
+        "saveDataDir": "",
+        "filterCommands": false,
+        "x": 80,
+        "y": 340,
+        "wires": [
+            [
+                "b0666af63d26928a"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "b0666af63d26928a",
+        "type": "debug",
+        "z": "132bf0d4128ede56",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 330,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "61f96e70515590ba",
+        "type": "telegram bot",
+        "botname": "BryVendas",
+        "usernames": "",
+        "chatids": "",
+        "baseapiurl": "",
+        "updatemode": "polling",
+        "pollinterval": "300",
+        "usesocks": false,
+        "sockshost": "",
+        "socksprotocol": "socks5",
+        "socksport": "6667",
+        "socksusername": "anonymous",
+        "sockspassword": "",
+        "bothost": "",
+        "botpath": "",
+        "localbotport": "8443",
+        "publicbotport": "8443",
+        "privatekey": "",
+        "certificate": "",
+        "useselfsignedcertificate": false,
+        "sslterminated": false,
+        "verboselogging": false
+    }
+]
